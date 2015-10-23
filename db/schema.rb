@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023001821) do
+ActiveRecord::Schema.define(version: 20151023015224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "auction_admins", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "auction_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "auction_admins", ["auction_id"], name: "index_auction_admins_on_auction_id", using: :btree
+  add_index "auction_admins", ["user_id"], name: "index_auction_admins_on_user_id", using: :btree
 
   create_table "auctions", force: :cascade do |t|
     t.datetime "starts_at"
@@ -43,4 +53,18 @@ ActiveRecord::Schema.define(version: 20151023001821) do
 
   add_index "donation_categories", ["name"], name: "index_donation_categories_on_name", unique: true, using: :btree
 
+  create_table "users", force: :cascade do |t|
+    t.string   "name",                null: false
+    t.string   "mobile_phone_number", null: false
+    t.string   "email_address",       null: false
+    t.string   "physical_address",    null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "users", ["email_address"], name: "index_users_on_email_address", unique: true, using: :btree
+  add_index "users", ["mobile_phone_number"], name: "index_users_on_mobile_phone_number", unique: true, using: :btree
+
+  add_foreign_key "auction_admins", "auctions"
+  add_foreign_key "auction_admins", "users"
 end
