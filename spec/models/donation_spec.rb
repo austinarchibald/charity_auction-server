@@ -82,5 +82,4 @@ RSpec.describe Donation, type: :model do
     expect(subject.fulfillment_type).to be_nil
   end
 
-  it { is_expected.to have_many :bids}
 end
