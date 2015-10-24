@@ -11,6 +11,8 @@ RSpec.describe Auction do
     it { is_expected.to have_attribute :name }
 
     it { is_expected.to have_attribute :donation_window_ends_at }
+
+    it { is_expected.to belong_to :organization }
   end
 
   describe "relationships" do
@@ -45,6 +47,8 @@ RSpec.describe Auction do
       expect(subject.errors[:time_zone_id]).to be_empty
     end
   end
+
+  it { is_expected.to validate_presence_of :organization }
 
   it "has a valid factory" do
     expect(FactoryGirl.create(:auction)).to be_persisted
