@@ -5,6 +5,7 @@ gem "pg"
 gem "bcrypt", "~> 3.1.7"
 
 gem "puma"
+gem "doorkeeper"
 
 group :development, :test do
   gem "byebug"
